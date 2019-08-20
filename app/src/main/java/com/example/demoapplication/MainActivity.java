@@ -54,14 +54,19 @@ public class MainActivity extends AppCompatActivity implements ProviderInstaller
 
     private void setUp() {
         mainBinding.startOnyxButton.setEnabled(false);
+        refresh();
         mainBinding.refreshConfigButton.setOnClickListener(v -> {
-            setupOnyx(activity);
-            mainBinding.startOnyxButton.setEnabled(false);
+           refresh();
         });
         mainBinding.startOnyxButton.setOnClickListener(v -> {
             MainApplication.setOnyxResult(null);
             startActivityForResult(new Intent(activity, OnyxActivity.class), ONYX_REQUEST_CODE);
         });
+    }
+
+    private void refresh() {
+        setupOnyx(activity);
+        mainBinding.startOnyxButton.setEnabled(false);
     }
 
     private void setupOnyx(Activity activity) {
@@ -89,9 +94,6 @@ public class MainActivity extends AppCompatActivity implements ProviderInstaller
 
         // Reticle Angle overrides Reticle Orientation so have to set this separately
 
-       /* if (getReticleAngle(this) != null) {
-            onyxConfigurationBuilder.setReticleAngle(getReticleAngle(this));
-        }*/
 
         onyxConfigurationBuilder.setReticleAngle(2.0f); //float value
         onyxConfigurationBuilder.setUseManualCapture(false);
