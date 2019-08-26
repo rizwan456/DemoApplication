@@ -31,6 +31,10 @@ public class MainApplication extends Application {
         MainApplication.activityForRunningOnyx = activityForRunningOnyx;
     }
 
+    public static void setActivityForRunningOnyx1(HelperActivity activityForRunningOnyx) {
+        MainApplication.activityForRunningOnyx = activityForRunningOnyx;
+    }
+
     public static Activity getActivityForRunningOnyx() {
         return activityForRunningOnyx;
     }

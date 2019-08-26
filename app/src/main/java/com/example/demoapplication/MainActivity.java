@@ -2,7 +2,6 @@ package com.example.demoapplication;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -56,11 +55,12 @@ public class MainActivity extends AppCompatActivity implements ProviderInstaller
         mainBinding.startOnyxButton.setEnabled(false);
         refresh();
         mainBinding.refreshConfigButton.setOnClickListener(v -> {
-           refresh();
+            refresh();
         });
         mainBinding.startOnyxButton.setOnClickListener(v -> {
             MainApplication.setOnyxResult(null);
-            startActivityForResult(new Intent(activity, OnyxActivity.class), ONYX_REQUEST_CODE);
+            //startActivityForResult(new Intent(activity, OnyxActivity.class), ONYX_REQUEST_CODE);
+            startActivity(new Intent(activity, HelperActivity.class));
         });
     }
 
@@ -74,29 +74,29 @@ public class MainActivity extends AppCompatActivity implements ProviderInstaller
                 .setActivity(activity)
                 .setLicenseKey(getResources().getString(R.string.onyx_license))
                 .setReturnRawImage(true) //return raw image
-                .setReturnProcessedImage(false) //return processed image
-                .setReturnEnhancedImage(false) //return enhanced image
-                .setReturnWSQ(false) //return wsq
+                .setReturnProcessedImage(true) //return processed image
+                .setReturnEnhancedImage(true) //return enhanced image
+                .setReturnWSQ(true) //return wsq
                 .setReturnFingerprintTemplate(true) //show fingerprint template
-                .setThresholdProcessedImage(false)
+                .setThresholdProcessedImage(true)
                 .setShowLoadingSpinner(true)
                 .setUseOnyxLive(true)
                 .setUseFlash(false)
                 .setImageRotation(90)
                 .setReticleOrientation(Reticle.Orientation.LEFT) //Reticle.Orientation.LEFT : Reticle.Orientation.RIGHT;
-                .setCropSize(512,512)
+                .setCropSize(512, 512)
                 .setCropFactor(1.0f)
-                .setUseFourFingerReticle(true)
                 .setLayoutPreference(OnyxConfiguration.LayoutPreference.FULL)
                 .setSuccessCallback(successCallback)
+                .setUseFourFingerReticle(true)
                 .setErrorCallback(errorCallback)
                 .setOnyxCallback(onyxCallback);
 
         // Reticle Angle overrides Reticle Orientation so have to set this separately
 
 
-        onyxConfigurationBuilder.setReticleAngle(2.0f); //float value
-        onyxConfigurationBuilder.setUseManualCapture(false);
+        /*onyxConfigurationBuilder.setReticleAngle(2.0f); //float value
+        onyxConfigurationBuilder.setUseManualCapture(false);*/
         // Finally, build the OnyxConfiguration
         onyxConfigurationBuilder.buildOnyxConfiguration();
     }
